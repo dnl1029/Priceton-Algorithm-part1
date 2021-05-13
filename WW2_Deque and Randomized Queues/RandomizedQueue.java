@@ -11,7 +11,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // construct an empty randomized queue
 //    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
-        arr = (Item[]) new Object[2];
+        arr = (Item[]) new Object[1];
         num = 0;
     }
 
@@ -46,20 +46,39 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // remove and return a random item
     // halve size of array s[] when array is one-quarter full.
-    public Item dequeue() {
+    // for statement for random index is not working properly in making n calls to enqueue() followed by n calls to dequeue()
+//    public Item dequeue() {
+//        checkExceptionNEE();
+//        if (num == arr.length / 4) {
+//            resize(arr.length / 2);
+//        }
+//        int random = StdRandom.uniform(0, num);
+//        Item ruturnitem = arr[random];
+//
+//        arr[random] = null;
+//
+//        for (int i = random; i < num-1; i++) {
+//            arr[i] = arr[i+1];
+//        }
+//        arr[num-1] = null;
+//        num--;
+//
+//        return ruturnitem;
+//    }
+
+    // remove and return a random item
+    // halve size of array s[] when array is one-quarter full.
+        public Item dequeue() {
         checkExceptionNEE();
+
+        int random = StdRandom.uniform(0, num);
+        Item ruturnitem = arr[random];
+        arr[random] = arr[num-1];
+        arr[num-1] = null;
+
         if (num == arr.length / 4) {
             resize(arr.length / 2);
         }
-        int random = StdRandom.uniform(0, num);
-        Item ruturnitem = arr[random];
-
-        arr[random] = null;
-
-        for (int i = random; i < num-1; i++) {
-            arr[i] = arr[i+1];
-        }
-        arr[num-1] = null;
         num--;
 
         return ruturnitem;
